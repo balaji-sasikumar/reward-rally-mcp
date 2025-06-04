@@ -1,0 +1,29 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'python', args: ['main.py'], env: { REWARDRALLY_CLIENT_ID: config.rewardRallyClientId, REWARDRALLY_CLIENT_SECRET: config.rewardRallyClientSecret, BASE_URL: config.baseUrl } })
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - rewardRallyClientId
+      - rewardRallyClientSecret
+      - baseUrl
+    properties:
+      rewardRallyClientId:
+        type: string
+        description: RewardRally client ID for authentication
+      rewardRallyClientSecret:
+        type: string
+        description: RewardRally client secret for authentication
+      baseUrl:
+        type: string
+        description: Base URL of the RewardRally API (e.g., https://api.rewardrally.com)
+  exampleConfig:
+    rewardRallyClientId: abc123clientid
+    rewardRallyClientSecret: shhhSuperSecret
+    baseUrl: https://api.rewardrally.com
